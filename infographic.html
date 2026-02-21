@@ -1,0 +1,445 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Master Career Playbook – Process Intelligence + AI</title>
+  <style>
+    :root {
+      --bg: #050f22;
+      --bg2: #0a1d3f;
+      --panel: #0a2144cc;
+      --card: #102b57f0;
+      --line: #2a7fff;
+      --line2: #25dbff;
+      --text: #eaf3ff;
+      --muted: #a7c0e5;
+      --accent: #20d4ff;
+      --ok: #55e3a8;
+      --warn: #ffbd58;
+      --danger: #ff6c85;
+      --shadow: 0 14px 34px rgba(0, 0, 0, 0.35);
+    }
+
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      color: var(--text);
+      font-family: Inter, "Segoe UI", Roboto, Arial, sans-serif;
+      background: radial-gradient(circle at 15% 2%, #14448b 0%, transparent 22%),
+                  radial-gradient(circle at 90% 0%, #0a59db 0%, transparent 25%),
+                  linear-gradient(160deg, var(--bg), var(--bg2));
+      padding: 28px;
+    }
+
+    .slide {
+      max-width: 1380px;
+      margin: 0 auto;
+      background: linear-gradient(180deg, rgba(10, 30, 62, 0.9), rgba(6, 18, 39, 0.94));
+      border: 1px solid rgba(64, 136, 255, 0.45);
+      border-radius: 22px;
+      box-shadow: var(--shadow);
+      padding: 24px;
+    }
+
+    .top {
+      border-bottom: 1px solid rgba(64, 136, 255, 0.45);
+      padding-bottom: 14px;
+      margin-bottom: 18px;
+    }
+
+    h1 {
+      margin: 0;
+      font-size: clamp(1.45rem, 2vw, 2.2rem);
+    }
+
+    .sub {
+      margin-top: 7px;
+      color: var(--accent);
+      text-transform: uppercase;
+      letter-spacing: 1.1px;
+      font-weight: 700;
+      font-size: .88rem;
+    }
+
+    .flow {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      color: var(--muted);
+      font-size: .85rem;
+      margin-top: 10px;
+      flex-wrap: wrap;
+    }
+
+    .arrow { color: var(--accent); font-size: 1rem; }
+
+    .grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+    }
+
+    .panel {
+      background: var(--panel);
+      border: 1px solid rgba(70, 138, 255, 0.35);
+      border-radius: 14px;
+      padding: 14px;
+    }
+
+    .panel h2 {
+      margin: 0 0 10px;
+      font-size: 1rem;
+      color: #dbe9ff;
+    }
+
+    .identity {
+      display: grid;
+      gap: 10px;
+    }
+
+    .identity .item {
+      background: var(--card);
+      border: 1px solid rgba(70, 138, 255, 0.3);
+      border-radius: 11px;
+      padding: 10px 12px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-weight: 600;
+    }
+
+    .icon {
+      width: 26px;
+      height: 26px;
+      display: grid;
+      place-items: center;
+      border-radius: 8px;
+      background: linear-gradient(160deg, #1f5bc6, #1dd2ff);
+      font-size: .95rem;
+    }
+
+    .timeline {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 10px;
+      margin-top: 10px;
+      position: relative;
+    }
+
+    .timeline::before {
+      content: "";
+      position: absolute;
+      top: 45%;
+      left: 3%;
+      right: 3%;
+      height: 2px;
+      background: linear-gradient(90deg, var(--line), var(--line2));
+      z-index: 0;
+    }
+
+    .node {
+      z-index: 1;
+      background: var(--card);
+      border: 1px solid rgba(70, 138, 255, 0.4);
+      border-radius: 11px;
+      text-align: center;
+      padding: 10px;
+      min-height: 82px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 700;
+      position: relative;
+    }
+
+    .node::before {
+      content: "";
+      position: absolute;
+      top: -11px;
+      left: calc(50% - 6px);
+      width: 12px;
+      height: 12px;
+      border-radius: 99px;
+      background: var(--accent);
+      box-shadow: 0 0 0 4px rgba(32, 212, 255, 0.2);
+    }
+
+    details {
+      background: var(--card);
+      border: 1px solid rgba(70, 138, 255, 0.32);
+      border-radius: 11px;
+      padding: 10px 12px;
+    }
+
+    details + details { margin-top: 9px; }
+
+    summary {
+      cursor: pointer;
+      list-style: none;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+    }
+
+    summary::-webkit-details-marker { display: none; }
+
+    summary .tag {
+      color: var(--accent);
+      font-size: .78rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: .8px;
+    }
+
+    .detail-body {
+      margin-top: 10px;
+      color: var(--muted);
+      font-size: .9rem;
+      line-height: 1.45;
+    }
+
+    .detail-body ul {
+      margin: 8px 0 0 18px;
+      padding: 0;
+    }
+
+    .split {
+      grid-column: 1 / -1;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+    }
+
+    .outcomes {
+      display: grid;
+      grid-template-columns: 1fr auto 1fr;
+      gap: 10px;
+      align-items: center;
+      margin-top: 8px;
+    }
+
+    .outcome {
+      background: var(--card);
+      border: 1px solid rgba(70, 138, 255, 0.35);
+      border-radius: 11px;
+      padding: 12px;
+      text-align: center;
+      font-weight: 700;
+      min-height: 74px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .risk-grid {
+      margin-top: 9px;
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 10px;
+    }
+
+    .risk {
+      border-radius: 10px;
+      padding: 10px;
+      font-weight: 700;
+      background: #0f2a54;
+      border: 1px solid rgba(255, 255, 255, 0.08);
+    }
+    .risk.high { border-left: 4px solid var(--danger); }
+    .risk.med { border-left: 4px solid var(--warn); }
+    .risk.low { border-left: 4px solid var(--ok); }
+
+    .foot {
+      grid-column: 1 / -1;
+      background: #0c244bdd;
+      border: 1px solid rgba(66, 136, 255, 0.35);
+      border-radius: 12px;
+      padding: 12px;
+      color: var(--muted);
+      font-size: .9rem;
+      line-height: 1.45;
+    }
+
+    @media (max-width: 1100px) {
+      .grid, .split { grid-template-columns: 1fr; }
+      .timeline { grid-template-columns: 1fr 1fr; }
+      .outcomes { grid-template-columns: 1fr; }
+      .timeline::before { display: none; }
+    }
+  </style>
+</head>
+<body>
+  <main class="slide" role="img" aria-label="Sequential interactive career roadmap infographic for process intelligence and AI">
+    <header class="top">
+      <h1>Master Career Playbook – Process Intelligence + AI</h1>
+      <div class="sub">Sequential Career Strategy | While Staying at Celonis</div>
+      <div class="flow">
+        Foundation <span class="arrow">→</span> Upskilling (16 Weeks) <span class="arrow">→</span> Portfolio Proof <span class="arrow">→</span> Internal + Remote Outcomes
+      </div>
+    </header>
+
+    <section class="grid">
+      <article class="panel">
+        <h2>1) Core Career Direction (Non-Negotiable Foundation)</h2>
+        <div class="identity">
+          <div class="item"><span class="icon">🧠</span> Process Intelligence</div>
+          <div class="item"><span class="icon">☁️</span> AI Decision Systems</div>
+          <div class="item"><span class="icon">⚙️</span> Agentic Workflow Execution</div>
+        </div>
+        <details open>
+          <summary><span>Objective</span><span class="tag">Click to collapse</span></summary>
+          <div class="detail-body">
+            <ul>
+              <li>Leverage Celonis experience as strategic differentiator.</li>
+              <li>Build AI/ML credibility for production decision systems.</li>
+              <li>Demonstrate execution capability: AI → decision → action.</li>
+              <li>Target high-paying remote roles or internal AI transformation roles.</li>
+            </ul>
+          </div>
+        </details>
+        <details>
+          <summary><span>Important Guardrails</span><span class="tag">Click for details</span></summary>
+          <div class="detail-body">
+            <ul>
+              <li>Do NOT resign during upskilling phase.</li>
+              <li>Do NOT pivot into ERP-only tracks.</li>
+              <li>Do NOT collect random/unrelated certifications.</li>
+            </ul>
+          </div>
+        </details>
+      </article>
+
+      <article class="panel">
+        <h2>2) 16-Week Structured Roadmap (Sequential)</h2>
+        <div class="timeline">
+          <div class="node">Phase 1<br/>Weeks 1–3</div>
+          <div class="node">Phase 2<br/>Weeks 4–9</div>
+          <div class="node">Phase 3<br/>Weeks 10–13</div>
+          <div class="node">Phase 4<br/>Weeks 14–16</div>
+        </div>
+        <details open>
+          <summary><span>Phase 1: AI Product & Decision Intelligence</span><span class="tag">Weeks 1–3</span></summary>
+          <div class="detail-body">
+            Courses: AI for Everyone + AI Product Management (DeepLearning.AI/Coursera).<br/>
+            Focus: decision vs prediction, HITL systems, governance/risk.<br/>
+            Outcome: stronger interview narrative + design of AI-driven business decisions.
+          </div>
+        </details>
+        <details>
+          <summary><span>Phase 2: Google Professional ML Engineer</span><span class="tag">Weeks 4–9</span></summary>
+          <div class="detail-body">
+            Modules: ML lifecycle, feature engineering, evaluation, responsible AI, deployment/monitoring.<br/>
+            Milestones: book exam in Week 7, take exam in Week 9.<br/>
+            Outcome: production-grade ML credibility for remote roles.
+          </div>
+        </details>
+        <details>
+          <summary><span>Phase 3: Agentic Workflow Execution</span><span class="tag">Weeks 10–13</span></summary>
+          <div class="detail-body">
+            Choose one engine: <b>Temporal (recommended)</b> or Camunda.<br/>
+            Build workflow: Input → Decision → Action + ML prediction + LLM explanation + retries/failure handling.<br/>
+            Outcome: one strong execution-focused portfolio project.
+          </div>
+        </details>
+        <details>
+          <summary><span>Phase 4: Market Entry & Positioning</span><span class="tag">Weeks 14–16</span></summary>
+          <div class="detail-body">
+            Rewrite impact-based resume, optimize LinkedIn brand, and apply daily for Process/Decision/Agentic AI roles.<br/>
+            Outcome: active interview pipeline.
+          </div>
+        </details>
+      </article>
+
+      <div class="split">
+        <article class="panel">
+          <h2>3) Certification Roadmap (Prioritized)</h2>
+          <details open>
+            <summary><span>Mandatory Certifications</span><span class="tag">Priority 1</span></summary>
+            <div class="detail-body">
+              <ul>
+                <li>AI for Everyone (DeepLearning.AI)</li>
+                <li>AI Product Management (DeepLearning.AI)</li>
+                <li>Google Professional ML Engineer</li>
+              </ul>
+            </div>
+          </details>
+          <details>
+            <summary><span>Optional (Only if JD demands)</span><span class="tag">Priority 2</span></summary>
+            <div class="detail-body">
+              AWS Solutions Architect – Associate (only when explicitly required by target job descriptions).
+            </div>
+          </details>
+        </article>
+
+        <article class="panel">
+          <h2>4) Portfolio Project Blueprint</h2>
+          <details open>
+            <summary><span>AI-Driven Process Decision & Execution System</span><span class="tag">GitHub-ready</span></summary>
+            <div class="detail-body">
+              Architecture: Event Data → ML Prediction → Decision Logic → LLM Explanation → Workflow Engine → Action → Feedback Loop.
+              <ul>
+                <li>Risk prediction model</li>
+                <li>Agentic orchestration</li>
+                <li>Safe fallback mechanism</li>
+                <li>Business impact measurement</li>
+              </ul>
+              README must cover: business problem, decision logic, agent behavior, and architecture.
+            </div>
+          </details>
+        </article>
+      </div>
+
+      <div class="split">
+        <article class="panel">
+          <h2>5) Internal Switch Strategy at Celonis</h2>
+          <details open>
+            <summary><span>Internal Positioning Actions</span><span class="tag">Execution Plan</span></summary>
+            <div class="detail-body">
+              Volunteer for AI-enabled process initiatives, propose O2C predictive use cases, build internal prototypes, and position as an AI-enabled Process Architect.
+            </div>
+          </details>
+
+          <h2 style="margin-top:12px;">6) Remote Job Targeting Strategy</h2>
+          <details>
+            <summary><span>Roles + Compensation Targets</span><span class="tag">Market Entry</span></summary>
+            <div class="detail-body">
+              Salary range: USD 120k–180k remote (INR ~30L–60L+).<br/>
+              Target roles: Process Intelligence Engineer, Decision Intelligence Engineer, AI Automation Architect.
+            </div>
+          </details>
+        </article>
+
+        <article class="panel">
+          <h2>7) Non-Negotiable Rules & Risk Matrix</h2>
+          <div class="risk-grid">
+            <div class="risk high">Over-certification</div>
+            <div class="risk med">ERP Lock-in</div>
+            <div class="risk high">AI without ROI</div>
+            <div class="risk low">Premature switching</div>
+          </div>
+          <details style="margin-top:10px;" open>
+            <summary><span>Rules to enforce weekly</span><span class="tag">Discipline Layer</span></summary>
+            <div class="detail-body">
+              Do not resign prematurely; avoid ERP-only pivots; avoid unrelated certifications; prioritize execution proof over certificate count.
+            </div>
+          </details>
+
+          <h2 style="margin-top:12px;">Final Outcome (4–6 Months)</h2>
+          <div class="outcomes">
+            <div class="outcome">Internal AI Transformation Leadership</div>
+            <div class="arrow">➜</div>
+            <div class="outcome">High-Paying Remote AI + Process Roles</div>
+          </div>
+        </article>
+      </div>
+
+      <div class="foot">
+        <b>Presentation note:</b> This infographic is intentionally sequential and interactive: each block can be expanded during an executive presentation to reveal details on demand while preserving a clear top-to-bottom strategic narrative.
+      </div>
+    </section>
+  </main>
+</body>
+</html>
